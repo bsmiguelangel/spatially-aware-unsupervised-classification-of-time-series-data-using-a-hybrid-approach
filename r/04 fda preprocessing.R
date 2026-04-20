@@ -21,15 +21,15 @@ for (pollutant in pollutants) {
     time_series <- data[data$NOM_ESTACION == station, pollutant]
     time_series <- na.approx(time_series, na.rm = FALSE, rule = 2)
     time_range <- c(0, 366)
-    # El orden 4 corresponde a B-splines cúbicos
+    # Order 4 corresponds to cubic B-splines
     spline_order <- 4 
-    # Creamos la base de B-splines
+    # Create the B-spline basis
     basis_obj <- create.bspline.basis(rangeval = time_range, nbasis = num_basis, norder = spline_order)
-    # Esto nos dará los coeficientes de las funciones base, que representan nuestra curva en un espacio de baja dimensión
+    # This gives us the coefficients of the basis functions, which represent our curve in a low-dimensional space
     smoothed_fd <- smooth.basis(argvals = t_points, y = time_series, fdParobj = basis_obj)$fd
-    # Extraemos los coeficientes
+    # Extract the coefficients
     spline_coefficients <- smoothed_fd$coefs
-    # Visualización de los resultados
+    # Visualization of the results
     fine_t_points <- seq(0, 366, length.out = 500)
     smoothed_curve <- eval.fd(fine_t_points, smoothed_fd)
     df_coefs <- rbind(df_coefs, data.frame(pollutant, 
