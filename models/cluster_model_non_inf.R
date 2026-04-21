@@ -29,7 +29,7 @@ cluster_model <- nimbleCode({
   psi ~ dbeta(0.5, 0.5) # Jeffreys prior
   
   # # Informative priors for k-means
-  # psi ~ dbeta(1, 13) # Moderately informative
+  # psi ~ dbeta(1, 14) # Moderately informative
   
   beta_0[1] <- 0
   for (Cluster in 2:NClusters) {
